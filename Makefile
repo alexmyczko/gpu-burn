@@ -36,7 +36,7 @@ IMAGE_NAME ?= gpu-burn
 
 .PHONY: clean
 
-gpu_burn: gpu_burn-drv.o compare.ptx
+gpu-burn: gpu_burn-drv.o compare.ptx
 	g++ -o $@ $< -O3 ${LDFLAGS}
 
 %.o: %.cpp
@@ -46,7 +46,7 @@ gpu_burn: gpu_burn-drv.o compare.ptx
 	PATH="${PATH}:${CCPATH}:." ${NVCC} ${NVCCFLAGS} -ptx $< -o $@
 
 clean:
-	$(RM) *.ptx *.o gpu_burn
+	$(RM) *.ptx *.o gpu-burn
 
 image:
 	docker build --build-arg CUDA_VERSION=${CUDA_VERSION} --build-arg IMAGE_DISTRO=${IMAGE_DISTRO} -t ${IMAGE_NAME} .
